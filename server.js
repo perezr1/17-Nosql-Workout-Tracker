@@ -17,15 +17,8 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/userdb", {
   useNewUrlParser: true
 });
 
-app.post("/submit", ({ body }, res) => {
-  User.create(body)
-    .then(dbUser => {
-      res.json(dbUser);
-    })
-    .catch(err => {
-      res.json(err);
-    });
-});
+require("./routes/api")(app);
+require("./routes/view")(app);
 
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}!`);
